@@ -7,6 +7,7 @@ let
     import-linter = [ "setuptools" ];
     xextract = [ "setuptools" ];
   };
+
   p2n-overrides = pkgs.poetry2nix.defaultPoetryOverrides.extend (self: super:
     builtins.mapAttrs (package: build-requirements:
       (builtins.getAttr package super).overridePythonAttrs (old: {
@@ -14,6 +15,7 @@ let
       })
     ) pypkgs-build-requirements
   );
+
   app = pkgs.poetry2nix.mkPoetryApplication {
     projectDir = pkgs.fetchFromGitHub {
       owner = "imankulov";
@@ -24,9 +26,4 @@ let
     overrides = p2n-overrides;
   };
 in
-pkgs.writeShellApplication {
-  name = "linguee-api";
-  text = ''
-    ${app.dependencyEnv}/bin/uvicorn linguee_api.api:app "$@"
-  '';
-}
+app.dependencyEnv

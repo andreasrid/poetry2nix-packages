@@ -27,5 +27,16 @@
         };
       });
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
+
+      checks = forAllSystems (system: import ./tests {
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [
+            poetry2nix.overlays.default
+            (final: prev: self.packages.${system})
+            (final: prev: self.legacyPackages.${system}.overlays)
+          ];
+        };
+      });
     };
 }
