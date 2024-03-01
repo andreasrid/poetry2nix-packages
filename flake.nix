@@ -28,6 +28,13 @@
       });
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
 
+      nixosModules = import ./modules;
+
+      overlays.default = nixpkgs.lib.composeManyExtensions [
+        poetry2nix.overlays.default
+        (import ./overlay.nix)
+      ];
+
       checks = forAllSystems (system: import ./tests {
         pkgs = import nixpkgs {
           inherit system;
