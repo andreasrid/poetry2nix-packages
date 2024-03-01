@@ -26,4 +26,9 @@ let
     overrides = p2n-overrides;
   };
 in
-app.dependencyEnv
+  pkgs.writeShellApplication {
+    name = "linguee-api";
+    text = ''
+      ${app.dependencyEnv}/bin/uvicorn linguee_api.api:app "$@"
+    '';
+  }

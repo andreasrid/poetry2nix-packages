@@ -27,7 +27,7 @@ in {
       restartIfChanged = true;
       serviceConfig = {
         DynamicUser = true;
-        ExecStart = "${cfg.package}/bin/uvicorn linguee_api.api:app";
+        ExecStart = "${cfg.package}/bin/linguee-api";
         Restart = "always";
       };
     };
