@@ -27,6 +27,7 @@ in {
       restartIfChanged = true;
       serviceConfig = {
         DynamicUser = true;
+        RuntimeDirectory = "linguee-api";
         ExecStart = "${cfg.package}/bin/linguee-api";
         Restart = "always";
       };

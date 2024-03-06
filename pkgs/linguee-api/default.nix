@@ -23,6 +23,9 @@ let
       rev = "v2.6.0";
       sha256 = "sha256-jLmDPhCD/bZU3DzvFn473dVBLVBC81N/vdnAc8QoSnI=";
     };
+    patches = [
+      ./determine-storage-location.patch
+    ];
     overrides = p2n-overrides;
   };
 in
