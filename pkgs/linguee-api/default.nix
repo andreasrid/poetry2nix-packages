@@ -20,8 +20,8 @@ let
     projectDir = pkgs.fetchFromGitHub {
       owner = "imankulov";
       repo = "linguee-api";
-      rev = "v2.6.0";
-      sha256 = "sha256-jLmDPhCD/bZU3DzvFn473dVBLVBC81N/vdnAc8QoSnI=";
+      rev = "v2.6.2";
+      sha256 = "sha256-Ubg4PYOangZXFHaYz4/HuEIlVfF/5dzzfW92md9R3Eo=";
     };
     patches = [
       ./determine-storage-location.patch
