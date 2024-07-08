@@ -25,6 +25,7 @@ let
     };
     patches = [
       ./determine-storage-location.patch
+      ./parse_audio_links-add-support-for-full-or-partial-URLs.patch
     ];
     overrides = p2n-overrides;
   };

@@ -1,0 +1,30 @@
+From 8eee7dce1789c195149d7cc0a0e502a1d7e3b2ff Mon Sep 17 00:00:00 2001
+From: Andreas Rid <info@andreas-rid.de>
+Date: Mon, 8 Jul 2024 19:21:37 +0200
+Subject: [PATCH] parse_audio_links: add support for full or partial URLs
+
+linguee-api returns a full URL when the storage location is not the
+same as the project directory.
+---
+ linguee_api/parsers.py | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/linguee_api/parsers.py b/linguee_api/parsers.py
+index d93a36c..bcc8a64 100644
+--- a/linguee_api/parsers.py
++++ b/linguee_api/parsers.py
+@@ -119,7 +119,10 @@ def parse_audio_links(text: Optional[str]) -> List[Dict[str, str]]:
+     for i in range(1, len(chunks), 2):
+         url_part = chunks[i]
+         lang = chunks[i + 1]
+-        url = f"https://www.linguee.com/mp3/{url_part}.mp3"
++        if url_part.startswith("https://"):
++            url = f"{url_part}.mp3"
++        else:
++            url = f"https://www.linguee.com/mp3/{url_part}.mp3"
+         ret.append({"url": url, "lang": lang})
+     return ret
+ 
+-- 
+2.44.1
+
